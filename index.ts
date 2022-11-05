@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
-import https from 'https';
+import http from 'http';
 import CONFIG from './setup-env';
 import SetupEnv from './interfaces/configurations/setup-env';
 const cors = require("cors");
@@ -28,9 +28,14 @@ let users = [
 
 initialize();
 
-function initialize() {
+function initialize () {
   dotenv.config();
   const app = createExpressApp();
+
+  app.get('/', (req: any, res: any) => {
+    res.send('test');
+  });
+
   openServer(app, CONFIG);
 }
 
@@ -45,6 +50,8 @@ function createExpressApp () {
   return app;
 }
 
-function openServer(expressApp: Express, config: SetupEnv): https.Server {
-  return https.createServer(expressApp).listen(config.SERVER_PORT);
+function openServer(expressApp: Express, config: SetupEnv) {
+  http.createServer(expressApp).listen(config.SERVER_PORT, undefined, () => {
+    console.log('Listening to port ' + config.SERVER_PORT);
+  });
 }

@@ -1,15 +1,9 @@
-import express from 'express';
+import express, { Express } from 'express';
 import dotenv from 'dotenv';
+import https from 'https';
+import CONFIG from './setup-env';
+import SetupEnv from './interfaces/configurations/setup-env';
 const cors = require("cors");
-
-dotenv.config();
-
-const app = express();
-app.use(express.json());
-app.use(express.urlencoded({
-  extended: true,
-}));
-app.use(cors());
 
 let users = [
   {
@@ -31,20 +25,26 @@ let users = [
     permissao: "USER",
   },
 ];
-// DEFINA UM MIDDLEWARE QUE VERIFIQUE SE O USUÁRIO QUE ESTÁ ENVIANDO O REQUEST TEM A PERMISSÃO DE ADMINISTRADOR
-function isAdmin(req: any, res: any, next: any) {
-  let { callerId } = req.params;
-  // TODO
+
+initialize();
+
+function initialize() {
+  dotenv.config();
+  const app = createExpressApp();
+  openServer(app, CONFIG);
 }
 
-// ROTAS EXECUTANDO FUNÇÕES CRUD NA ARRAY DE USUÁRIOS, ONDE SOMENTE O ADMINISTRADOR PODE CRIAR OU DELETAR UM USUÁRIO.
-// ENVIE A ID DE QUEM ESTÁ ENVIANDO O REQUEST COMO PARÂMETRO NA URL " calledId "
-// CRIE AS SEGUINTES ROTAS.
+function createExpressApp () {
+  const app = express();
+  app.use(express.json());
+  app.use(express.urlencoded({
+    extended: true,
+  }));
+  app.use(cors());
 
-//TODO
-// GET /users
-// POST /users
-// PATCH /users/:id
-// DELETE /users/:id
+  return app;
+}
 
-app.listen(3000);
+function openServer(expressApp: Express, config: SetupEnv): https.Server {
+  return https.createServer(expressApp).listen(config.SERVER_PORT);
+}

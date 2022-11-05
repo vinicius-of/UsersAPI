@@ -1,14 +1,19 @@
-const express = require("express");
+import express from 'express';
+import dotenv from 'dotenv';
 const cors = require("cors");
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({
+  extended: true,
+}));
 app.use(cors());
 
 let users = [
   {
-    id: 032165,
+    id: 132165,
     nome: "Lucas",
     empresa: "Keller Williams",
     permissao: "ADMIN",
@@ -27,7 +32,7 @@ let users = [
   },
 ];
 // DEFINA UM MIDDLEWARE QUE VERIFIQUE SE O USUÁRIO QUE ESTÁ ENVIANDO O REQUEST TEM A PERMISSÃO DE ADMINISTRADOR
-function isAdmin(req, res, next) {
+function isAdmin(req: any, res: any, next: any) {
   let { callerId } = req.params;
   // TODO
 }

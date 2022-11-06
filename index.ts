@@ -1,9 +1,9 @@
 import express, { Express } from 'express';
 import dotenv from 'dotenv';
 import http from 'http';
-import CONFIG from './setup-env';
+import ENV from './setup-env';
 import SetupEnv from './interfaces/configurations/setup-env';
-const cors = require("cors");
+import setMiddlewares from './middlewares';
 
 let users = [
   {
@@ -26,27 +26,13 @@ let users = [
   },
 ];
 
-initialize();
-
-function initialize () {
-  dotenv.config();
-  const app = createExpressApp();
-
-  app.get('/', (req: any, res: any) => {
-    res.send('test');
-  });
-
-  openServer(app, CONFIG);
-}
+dotenv.config();
+const app = createExpressApp();
+openServer(app, ENV);
 
 function createExpressApp () {
   const app = express();
-  app.use(express.json());
-  app.use(express.urlencoded({
-    extended: true,
-  }));
-  app.use(cors());
-
+  setMiddlewares(app);
   return app;
 }
 

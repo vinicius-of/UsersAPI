@@ -1,8 +1,8 @@
 import SetupEnv from "./interfaces/configurations/setup-env";
 
-const CONFIG: SetupEnv = {
+const ENV: SetupEnv = {
     SERVER_PORT: process.env['SERVER_PORT'] ?? 3000,
-    APP_NAME: 'Users'
+    APP_NAME: process.env['APP_NAME'] ?? 'Express Server'
 }
 
-export default CONFIG;
+export default ENV;

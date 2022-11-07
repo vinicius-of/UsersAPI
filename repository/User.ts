@@ -35,7 +35,7 @@ export default class UserRepository implements Repository<User> {
 
         let newDocument = {...document};
 
-        if (newDocument?.id) {
+        if (!newDocument?.id) {
             newDocument = {
                 ...document,
                 id: Object.keys(this.dataset).length + 1,

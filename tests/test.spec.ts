@@ -8,25 +8,7 @@ describe("Inital test", () => {
         expect(true);
     });
 
-    it("should create a Express mock server", async () => {
-        const appMock = await createMockServer();
+    test.todo("it should create a Express mock server");
 
-        appMock.get('/', (req, res) => res.sendStatus(200));
-        const server = appMock.listen(TEST_ENV_VARS.SERVER_PORT);
-
-        request(appMock).get('/').expect(200);
-        await server.close();
-
-    });
-
-    it("should close the Express mock server", async () => {
-        const appMock = await createMockServer();
-
-        appMock.get('/', (req, res) => res.sendStatus(200));
-        const server = appMock.listen(TEST_ENV_VARS.SERVER_PORT);
-
-        await closeMockServer(server);
-
-        request(appMock).get('/').expect(404);
-    })
+    test.todo("it should close the Express mock server");
 });

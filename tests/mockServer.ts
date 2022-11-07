@@ -1,7 +1,6 @@
 import http from 'http';
 import express, { Express } from 'express';
 import setMiddlewares from '../middlewares';
-import TEST_ENV_VARS from './setup-test-env'
 
 export function createMockServer(): Promise<Express> {
     return new Promise((resolve, reject) => {

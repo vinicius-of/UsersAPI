@@ -35,12 +35,12 @@ export default class UserRepository implements Repository<User> {
 
         let newDocument = {...document};
 
-        if (!newDocument?.id) {
-            newDocument = {
-                ...document,
-                id: Object.keys(this.dataset).length + 1,
-            };
-        }
+        // if (!newDocument?.id) {
+        //     newDocument = {
+        //         ...document,
+        //         id: Object.keys(this.dataset).length + 1,
+        //     };
+        // }
 
         this.dataset[newDocument.id] = { ...newDocument };
         return this.dataset[newDocument.id];
